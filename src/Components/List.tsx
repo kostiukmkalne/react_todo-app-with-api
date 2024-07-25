@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import { FC } from 'react';
 import { TodoType } from '../Types/TodoType';
 import { Todo } from './Todo';
@@ -11,6 +9,8 @@ interface Props {
   todos: TodoType[];
   tempTodoTitle: string | null;
   idsProccesing: number[];
+  tempTodoRef: React.MutableRefObject<HTMLInputElement | null>; // Add this prop
+  onSubmit: (title: string) => void; // Add this prop
 }
 
 export const List: FC<Props> = ({
@@ -19,6 +19,8 @@ export const List: FC<Props> = ({
   onDelete,
   onEdit,
   idsProccesing,
+  tempTodoRef,
+  onSubmit,
 }) => {
   return (
     <section className="todoapp__main" data-cy="TodoList">
@@ -32,7 +34,14 @@ export const List: FC<Props> = ({
         />
       ))}
 
-      {tempTodoTitle && <TempTodo title={tempTodoTitle} />}
+      {/* Pass props in a single line to TempTodo */}
+      {tempTodoTitle && (
+        <TempTodo
+          title={tempTodoTitle}
+          onSubmit={onSubmit}
+          inputRef={tempTodoRef}
+        />
+      )}
     </section>
   );
 };

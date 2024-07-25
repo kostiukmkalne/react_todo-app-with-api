@@ -18,7 +18,7 @@ export const Footer: FC<Props> = ({
   todosCount,
   selectedFilter,
 }) => {
-  const filters = [Filter.all, Filter.active, Filter.completed];
+  const filters = [Filter.All, Filter.Active, Filter.Completed];
 
   return (
     <footer className="todoapp__footer" data-cy="Footer">
