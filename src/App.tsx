@@ -20,7 +20,7 @@ import { Filter } from './Types/Filter';
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const [filter, setFilter] = useState(Filter.all);
+  const [filter, setFilter] = useState(Filter.All);
   const [tempTodoTitle, setTempTodoTitle] = useState<string | null>('');
   const [idsProccesing, setIdsProccesing] = useState<number[]>([]);
 
@@ -146,10 +146,10 @@ export const App: React.FC = () => {
     let filteredTodos = todos;
 
     switch (filter) {
-      case Filter.active:
+      case Filter.Active:
         filteredTodos = todos.filter(todo => !todo.completed);
         break;
-      case Filter.completed:
+      case Filter.Completed:
         filteredTodos = todos.filter(todo => todo.completed);
         break;
       default:
