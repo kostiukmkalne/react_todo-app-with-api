@@ -21,7 +21,7 @@ export const App: React.FC = () => {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [filter, setFilter] = useState(Filter.All);
-  const [tempTodoTitle, setTempTodoTitle] = useState<string | null>('');
+  const [tempTodo, setTempTodo] = useState<TodoType | null>(null);
   const [idsProccesing, setIdsProccesing] = useState<number[]>([]);
 
   const ref = useRef<HTMLInputElement | null>(null);
@@ -42,7 +42,11 @@ export const App: React.FC = () => {
     };
 
     try {
-      setTempTodoTitle(title);
+      setTempTodo({
+        id: 0,
+        ...newTodo,
+      });
+      setIdsProccesing(prevIds => [...prevIds, 0]);
 
       const createdTodo = await createTodo(newTodo);
 
@@ -51,7 +55,8 @@ export const App: React.FC = () => {
       setErrorMessage('Unable to add a todo');
       throw new Error('Unable to add a todo');
     } finally {
-      setTempTodoTitle(null);
+      setTempTodo(null);
+      setIdsProccesing(prevIds => prevIds.filter(prevId => prevId !== 0));
     }
   };
 
@@ -222,7 +227,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     ref.current?.focus();
-  }, [todos.length, tempTodoTitle]);
+  }, [todos.length, tempTodo]);
 
   if (!USER_ID) {
     return <UserWarning />;
@@ -244,7 +249,7 @@ export const App: React.FC = () => {
           onDelete={handleDeleteTodo}
           onEdit={handleEditTodo}
           todos={filterTodos}
-          tempTodoTitle={tempTodoTitle}
+          tempTodo={tempTodo}
           idsProccesing={idsProccesing}
         />
 
