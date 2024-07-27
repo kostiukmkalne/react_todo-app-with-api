@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
 
@@ -40,6 +38,10 @@ export const Header: FC<Props> = ({
     }
   }, [inputRef, loading]);
 
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
   return (
     <header className="todoapp__header">
       {(todosCount.active > 0 || todosCount.completed > 0) && (
@@ -60,7 +62,7 @@ export const Header: FC<Props> = ({
           type="text"
           value={title}
           disabled={loading}
-          onChange={({ target }) => setTitle(target.value)}
+          onChange={handleTitleChange}
           className="todoapp__new-todo"
           placeholder="What needs to be done?"
         />

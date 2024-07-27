@@ -20,6 +20,8 @@ export const Footer: FC<Props> = ({
 }) => {
   const filters = [Filter.All, Filter.Active, Filter.Completed];
 
+  const isClearCompletedDisabled = todosCount.completed === 0;
+
   return (
     <footer className="todoapp__footer" data-cy="Footer">
       <span className="todo-count" data-cy="TodosCounter">
@@ -46,7 +48,7 @@ export const Footer: FC<Props> = ({
         type="button"
         className="todoapp__clear-completed"
         data-cy="ClearCompletedButton"
-        disabled={todosCount.completed === 0}
+        disabled={isClearCompletedDisabled}
         onClick={onClear}
       >
         Clear completed

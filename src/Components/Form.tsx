@@ -15,6 +15,14 @@ export const Form: FC<Props> = ({ title, onSubmit, inputRef }) => {
     onSubmit(value);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  const handleBlur = () => {
+    onSubmit(value);
+  };
+
   useEffect(() => {
     if (inputRef?.current) {
       inputRef.current?.focus();
@@ -30,8 +38,8 @@ export const Form: FC<Props> = ({ title, onSubmit, inputRef }) => {
         className="todo__title-field"
         placeholder="Empty todo will be deleted"
         value={value}
-        onChange={({ target }) => setValue(target.value)}
-        onBlur={() => onSubmit(value)}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
     </form>
   );

@@ -219,6 +219,10 @@ export const App: React.FC = () => {
     }
   };
 
+  const handleCloseError = () => {
+    setErrorMessage('');
+  };
+
   useEffect(() => {
     getTodos()
       .then(setTodos)
@@ -263,10 +267,7 @@ export const App: React.FC = () => {
         )}
       </div>
 
-      <ErrorMessage
-        message={errorMessage}
-        onClose={() => setErrorMessage('')}
-      />
+      <ErrorMessage message={errorMessage} onClose={handleCloseError} />
     </div>
   );
 };
